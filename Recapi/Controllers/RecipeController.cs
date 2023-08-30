@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Recapi.Data;
 
 namespace Recapi.Controllers;
 
@@ -7,45 +8,31 @@ namespace Recapi.Controllers;
 public class RecipeController : ControllerBase
 {
     private readonly ILogger<RecipeController> _logger;
-    private static List<Recipe> _recipes = new();
+    private readonly IDataStore dataStore;
 
-    public RecipeController(ILogger<RecipeController> logger)
+    public RecipeController(ILogger<RecipeController> logger, IDataStore dataStore)
     {
         _logger = logger;
+        this.dataStore = dataStore;
     }
 
     [HttpGet()]
     public IEnumerable<Recipe> Get()
     {
-        return _recipes;
+        return dataStore.GetAllRecipes();
     }
 
     [HttpGet("{id}")]
     public Recipe Get(int id)
     {
-        return _recipes[id];
+        return dataStore.GetRecipe(id);
     }
 
     [HttpPost]
     public Recipe Post([FromBody] Recipe recipe)
     {
-        recipe.Id = _recipes.Count;
-        _recipes.Add(recipe);
-        return recipe;
+        var newRecipe = dataStore.AddRecipe(recipe);
+        return newRecipe;
     }
 }
 
-public class Recipe
-{
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public string Instructions { get; set; }
-    public List<Ingredient> Ingredients { get; set; }
-}
-
-public class Ingredient
-{
-    public string Name { get; set; }
-    public decimal Quantity { get; set; }
-    public string Unit { get; set; }
-}
