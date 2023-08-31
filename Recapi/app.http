@@ -10,12 +10,26 @@ Content-Type: application/json
 
 {
   "name": "Cookies",
-  "instructions": "Bake them",
-  "ingredients": [
-    {
-      "name": "Chocolate",
-      "quantity": 15,
-      "unit": "25# Bags"
-    }
-  ]
+  "instructions": "Mix them up, stick them in the oven at 350 for 20 minutes, wait as long as you're able but not more than 30 seconds, then eat them."
+}
+
+###
+
+POST {{server}}/ingredient
+Content-Type: application/json
+
+{
+  "name": "Flour",
+  "quantity": 2,
+  "unit": "cups"
+}
+
+###
+
+POST {{server}}/recipeingredient
+Content-Type: application/json
+
+{
+  "recipeId": 1,
+  "ingredientId": 1
 }
