@@ -33,6 +33,7 @@
   - Apply the migration manually
   - App works.
   - How can we do that automatically?
+- Why are the recipe ingredients null?
 - Service lifetimes
 - Review 
 
