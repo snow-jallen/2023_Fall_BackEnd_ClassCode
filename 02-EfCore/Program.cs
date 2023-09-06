@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Recapi.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +9,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<IDataStore, JsonDataStore>();
+builder.Services.AddScoped<IDataStore, PostgresDataStore>();//scoped not singleton
+builder.Services.AddDbContext<RecipeContext>(options =>
+{
+    options.UseNpgsql(builder.Configuration["DbConnectionString"]);
+});
 
 var app = builder.Build();
 
