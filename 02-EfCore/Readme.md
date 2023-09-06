@@ -4,6 +4,10 @@
 
 `docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=password postgres`
 
+> If that worked properly, you should be able to run this command to run `psql` (the postgres command line interface) and connect to your database
+
+`docker run -it --rm postgres psql -h host.docker.internal -U postgres`
+
 ## Steps to add Postgres database support to your API
 - Add the Npgsql.EntityFrameworkCore.PostgreSQL and Microsoft.EntityFrameworkCore.Design nuget packages to your project
 - Create a PostgresContext class 
@@ -24,7 +28,31 @@
 - `dotnet tool install -g dotnet-ef` This installs the command line tools necessary to work with ef core
 - `dotnet ef migrations add MigrationNameSpelledLikeAClassName` Create a new database migration based off changes to classes referenced in your DbContext
 - `dotnet ef database update` apply any new migrations to the database
-- 
+
+> If you want to see that your migration was successfully applied, run `docker run -it --rm postgres psql -h host.docker.internal -U postgres` then 
+> run `\c yourdatabasename` to connect to the database specified in your connection string.  Then run `\d` to list any tables.
+> 
+```bash
+$> docker run -it --rm postgres psql -h host.docker.internal -U postgres
+Password for user postgres:
+psql (15.4 (Debian 15.4-1.pgdg120+1))
+Type "help" for help.
+
+postgres=# \c recipes
+You are now connected to database "recipes" as user "postgres".
+recipes=# \d
+                  List of relations
+ Schema |         Name          |   Type   |  Owner
+--------+-----------------------+----------+----------
+ public | Ingredients           | table    | postgres
+ public | Ingredients_Id_seq    | sequence | postgres
+ public | Recipes               | table    | postgres
+ public | Recipes_Id_seq        | sequence | postgres
+ public | __EFMigrationsHistory | table    | postgres
+(5 rows)
+
+recipes=#
+```
 
 ## Friday's class
 
