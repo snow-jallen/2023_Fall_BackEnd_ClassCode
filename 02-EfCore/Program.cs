@@ -1,3 +1,4 @@
+using EfCoreDemo;
 using Microsoft.EntityFrameworkCore;
 using Recapi.Data;
 
@@ -14,6 +15,7 @@ builder.Services.AddDbContext<RecipeContext>(options =>
 {
     options.UseNpgsql(builder.Configuration["DbConnectionString"]);
 });
+builder.Services.AddHostedService<MigrationService>();
 
 var app = builder.Build();
 

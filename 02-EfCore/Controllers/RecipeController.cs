@@ -34,5 +34,11 @@ public class RecipeController : ControllerBase
         var newRecipe = await dataStore.AddRecipe(recipe);
         return newRecipe;
     }
+
+    [HttpDelete("{id}")]
+    public async Task Delete(int id)
+    {
+        await dataStore.DeleteRecipe(id);
+    }
 }
 

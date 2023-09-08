@@ -6,4 +6,7 @@ public class Recipe
     public string Name { get; set; }
     public string Instructions { get; set; }
     public List<Ingredient> Ingredients { get; set; }
+    public int MinutesToMake { get; set; }
+    public string SourceUrl { get; set; }
+    public string ImageUrl { get; set; }
 }

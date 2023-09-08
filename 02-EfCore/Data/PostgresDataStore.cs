@@ -5,10 +5,12 @@ namespace Recapi.Data;
 public class PostgresDataStore : IDataStore
 {
     private readonly RecipeContext context;
+    private readonly ILogger<PostgresDataStore> logger;
 
-    public PostgresDataStore(RecipeContext context)
+    public PostgresDataStore(RecipeContext context, ILogger<PostgresDataStore> logger)
     {
         this.context = context;
+        this.logger = logger;
     }
 
     public async Task<Recipe> AddRecipe(Recipe recipe)
@@ -18,14 +20,25 @@ public class PostgresDataStore : IDataStore
         return recipe;
     }
 
-    public Task DeleteRecipe(int id)
+    public async Task DeleteRecipe(int id)
     {
-        throw new NotImplementedException();
+        var existingRecipe = await context.Recipes.FindAsync(id);
+        if (existingRecipe is null)
+        {
+            throw new ArgumentException($"Recipe with id {id} does not exist");
+        }
+        context.Recipes.Remove(existingRecipe);
+        await context.SaveChangesAsync();
     }
 
     public async Task<IEnumerable<Recipe>> GetAllRecipes()
     {
-        return await context.Recipes.ToListAsync();
+        logger.LogInformation("Trying to get recipes...");
+        var recipes = await context.Recipes
+            .Include(r => r.Ingredients)
+            .ToListAsync();
+
+        return recipes;
     }
 
     public Task<Recipe> GetRecipe(int id)
