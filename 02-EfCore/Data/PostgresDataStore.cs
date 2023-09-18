@@ -5,10 +5,12 @@ namespace Recapi.Data;
 public class PostgresDataStore : IDataStore
 {
     private readonly RecipeContext context;
+    private readonly ILogger<PostgresDataStore> logger;
 
-    public PostgresDataStore(RecipeContext context)
+    public PostgresDataStore(RecipeContext context, ILogger<PostgresDataStore> logger)
     {
         this.context = context;
+        this.logger = logger;
     }
 
     public async Task<Category> AddCategory(Category category)
@@ -36,9 +38,15 @@ public class PostgresDataStore : IDataStore
         throw new NotImplementedException();
     }
 
-    public Task DeleteRecipe(int id)
+    public async Task DeleteRecipe(int id)
     {
-        throw new NotImplementedException();
+        var existingRecipe = await context.Recipes.FindAsync(id);
+        if (existingRecipe is null)
+        {
+            throw new ArgumentException($"Recipe with id {id} does not exist");
+        }
+        context.Recipes.Remove(existingRecipe);
+        await context.SaveChangesAsync();
     }
 
     public async Task<IEnumerable<Category>> GetAllCategories() => await context.Categories.ToListAsync();
@@ -47,7 +55,7 @@ public class PostgresDataStore : IDataStore
 
     public async Task<Category> GetCategory(int id, bool showDetails = false)
     {
-        if(showDetails)
+        if (showDetails)
         {
             return await context.Categories
                 .Include(c => c.Recipes)
@@ -63,7 +71,7 @@ public class PostgresDataStore : IDataStore
             return await context.Recipes
                 .Include(r => r.Categories)
                     .ThenInclude(rc => rc.Category)
-                .Include(r=>r.Ingredients)
+                .Include(r => r.Ingredients)
                 .FirstOrDefaultAsync(r => r.Id == id);
         return await context.Recipes.FirstOrDefaultAsync(r => r.Id == id);
     }

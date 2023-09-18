@@ -57,6 +57,12 @@ public class RecipeController : ControllerBase
         return newRecipe;
     }
 
+    [HttpDelete("{id}")]
+    public async Task Delete(int id)
+    {
+        await dataStore.DeleteRecipe(id);
+    }
+
     [HttpPost("categorize")]
     public async Task<IResult> CategorizeRecipe(CategorizeRecipeRequest request)
     {

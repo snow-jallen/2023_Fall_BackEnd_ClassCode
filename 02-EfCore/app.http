@@ -11,11 +11,18 @@ Content-Type: application/json
 {
   "name": "Cookies",
   "instructions": "Bake them",
+  "minutesToMake": 10,
+  "sourceUrl": "http://www.cookies.com",
   "ingredients": [
     {
       "name": "Chocolate",
       "quantity": 15,
       "unit": "25# Bags"
     }
-  ]
+  ],
+  "imageUrl": "https://images.pexels.com/photos/230325/pexels-photo-230325.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
 }
+
+###
+
+DELETE {{server}}/recipe/1

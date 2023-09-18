@@ -11,9 +11,9 @@
 ## Steps to add Postgres database support to your API
 - Add the Npgsql.EntityFrameworkCore.PostgreSQL and Microsoft.EntityFrameworkCore.Design nuget packages to your project
 - Create a PostgresContext class 
-	- it inherits from DbContext
-	- include the constructor that passes configuration to the base constructor
-	- include any public `DbSet<T>` properties for any classes that you want to turn into tables
+    - it inherits from DbContext
+    - include the constructor that passes configuration to the base constructor
+    - include any public `DbSet<T>` properties for any classes that you want to turn into tables
 - Add the "DbConnectionString" to your appsettings.json file
 - Update Program.cs to make your new DbContext class available via Dependency Injection (the `builder.Services.AddDbContext...` line)
 - Create a migration
