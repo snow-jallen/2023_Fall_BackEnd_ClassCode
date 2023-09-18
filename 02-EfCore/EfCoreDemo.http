@@ -1,0 +1,136 @@
+﻿@EfCoreDemo_HostAddress = https://localhost:7048
+@server = https://localhost:7048
+
+POST {{server}}/recipe
+Content-Type: application/json
+
+{
+  "name": "Chocolate Chip Cookies",
+  "instructions": "Get mixed ingredients hot.",
+  "ingredients": [
+    {
+      "name": "Ingredients",
+      "quantity": 1,
+      "unit": "batch"
+    },
+    {
+      "name": "Heat",
+      "quantity": 30,
+      "unit": "minutes"
+    }
+  ],
+  "categories": []
+}
+
+### Create the 'Good Ones' category
+POST {{server}}/category
+Content-Type: application/json
+
+{
+  "name": "Good Ones",
+  "description": "These are good, classic recipes.",
+  "createdOn": "2023-09-18T18:05:00.266Z"
+}
+
+### Create the 'Cookies' category
+POST {{server}}/category
+Content-Type: application/json
+
+{
+  "name": "Cookies",
+  "description": "Usually round, and almost always yummy.",
+  "createdOn": "2023-09-17T18:05:00.266Z"
+}
+
+### Create the 'Hot' category
+POST {{server}}/category
+Content-Type: application/json
+
+{
+  "name": "Hot",
+  "description": "Watch out, these can be hot",
+  "createdOn": "2023-09-19T18:05:00.266Z"
+}
+
+### Link recipe 1 with category 2
+POST {{server}}/recipe/categorize
+Content-Type: application/json
+
+{
+  "recipeid": 1,
+  "categoryid": 2
+}
+
+### See the simple details for recipe 1
+GET {{server}}/recipe/1
+
+### See the full details for recipe 1
+GET {{server}}/recipe/1?showDetails=true
+
+### Link recipe 1 with category 1  
+POST {{server}}/recipe/categorize
+Content-Type: application/json
+
+{
+  "recipeid": 1,
+  "categoryid": 1
+}
+
+### Show full details
+GET {{server}}/recipe/1?showDetails=true
+
+
+### Link recipe 1 with category 3  
+POST {{server}}/recipe/categorize
+Content-Type: application/json
+
+{
+  "recipeid": 1,
+  "categoryid": 3
+}
+
+### Show full details
+GET {{server}}/recipe/1?showDetails=true
+
+### Show summary for category 3
+GET {{server}}/category/3
+
+### Show full details for category
+GET {{server}}/category/3/details
+
+### Create a new peanut butter cookie
+POST {{server}}/recipe
+Content-Type: application/json
+
+{
+  "name": "Peanut Butter Cookies",
+  "instructions": "Get mixed ingredients (including peanut butter) hot.",
+  "ingredients": [
+    {
+      "name": "Ingredients",
+      "quantity": 1,
+      "unit": "batch"
+    },
+    {
+      "name": "Heat",
+      "quantity": 30,
+      "unit": "minutes"
+    }
+  ],
+  "categories": []
+}
+
+### Link recipe 2 with category 3  
+POST {{server}}/recipe/categorize
+Content-Type: application/json
+
+{
+  "recipeid": 2,
+  "categoryid": 3
+}
+
+### Show summary for category 3
+GET {{server}}/category/3
+
+### Show full details for category
+GET {{server}}/category/3/details
