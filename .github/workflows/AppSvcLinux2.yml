@@ -8,7 +8,7 @@ env:
   AZURE_WEBAPP_PACKAGE_PATH: ./publish
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 7.0.x
-  WORKING_DIRECTORY: 02-EfCore/EFCoreDemo/EFCoreDemo.csproj
+  WORKING_DIRECTORY: 02-EfCore/EFCoreDemo
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,12 +18,12 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
-    - name: Investigate
-      run: |
-        ls
-        ls 02-EfCore
-        ls 02-EfCore/EFCoreDemo
-        ls 02-EfCore/EFCoreDemo/EfCoreDemo.csproj
+    # - name: Investigate
+    #   run: |
+    #     ls
+    #     ls 02-EfCore
+    #     ls 02-EfCore/EFCoreDemo
+    #     ls 02-EfCore/EFCoreDemo/EfCoreDemo.csproj
     - name: Restore
       run: dotnet restore "${{ env.WORKING_DIRECTORY }}"
     - name: Build
