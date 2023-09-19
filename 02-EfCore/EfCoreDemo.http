@@ -1,5 +1,6 @@
 ﻿@EfCoreDemo_HostAddress = https://localhost:7048
-@server = https://localhost:7048
+//@server = https://localhost:7048
+@server = https://appsvclinux2.azurewebsites.net/
 
 POST {{server}}/recipe
 Content-Type: application/json
@@ -7,6 +8,8 @@ Content-Type: application/json
 {
   "name": "Chocolate Chip Cookies",
   "instructions": "Get mixed ingredients hot.",
+  "imageurl": " ",
+  "sourceurl": " ",
   "ingredients": [
     {
       "name": "Ingredients",
@@ -105,6 +108,8 @@ Content-Type: application/json
 {
   "name": "Peanut Butter Cookies",
   "instructions": "Get mixed ingredients (including peanut butter) hot.",
+  "imageurl": " ",
+  "sourceurl": " ",
   "ingredients": [
     {
       "name": "Ingredients",
