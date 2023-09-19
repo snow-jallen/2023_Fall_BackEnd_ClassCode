@@ -18,6 +18,12 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
+    - name: Investigate
+      run: |
+        ls
+        ls 02-EfCore
+        ls 02-EfCore/EfCoreDemo
+        ls 02-EfCore/EfCoreDemo/EfCoreDemo.csproj
     - name: Restore
       run: dotnet restore "${{ env.WORKING_DIRECTORY }}"
     - name: Build
