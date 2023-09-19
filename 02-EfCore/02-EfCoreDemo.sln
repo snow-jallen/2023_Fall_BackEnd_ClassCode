@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EfCoreDemo", "EFCoreDemo\EfCoreDemo.csproj", "{C2A8EAE5-A647-419E-B49F-71BC2388D3F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiTests", "..\ApiTests\ApiTests.csproj", "{0C1B3260-3C4A-4028-BF9A-81E63DD03EB3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiTests", "ApiTests\ApiTests.csproj", "{199CF212-9A54-4F5D-8B13-886A737177DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{C2A8EAE5-A647-419E-B49F-71BC2388D3F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2A8EAE5-A647-419E-B49F-71BC2388D3F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2A8EAE5-A647-419E-B49F-71BC2388D3F3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0C1B3260-3C4A-4028-BF9A-81E63DD03EB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0C1B3260-3C4A-4028-BF9A-81E63DD03EB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0C1B3260-3C4A-4028-BF9A-81E63DD03EB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0C1B3260-3C4A-4028-BF9A-81E63DD03EB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{199CF212-9A54-4F5D-8B13-886A737177DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{199CF212-9A54-4F5D-8B13-886A737177DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{199CF212-9A54-4F5D-8B13-886A737177DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{199CF212-9A54-4F5D-8B13-886A737177DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
