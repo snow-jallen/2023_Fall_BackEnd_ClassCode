@@ -86,3 +86,7 @@ public class MigrationService : BackgroundService
     }
 }
 ```
+
+## Live site running in azure:
+
+[Azure API](https://appsvclinux2.azurewebsites.net/recipe)
