@@ -1,4 +1,5 @@
 ﻿using EfCoreDemo.DTO;
+using EfCoreDemo.Mappers;
 using Microsoft.AspNetCore.Mvc;
 using Recapi.Data;
 
@@ -10,17 +11,19 @@ public class RecipeController : ControllerBase
 {
     private readonly ILogger<RecipeController> _logger;
     private readonly IDataStore dataStore;
+    private readonly RecipeMapper mapper;
 
-    public RecipeController(ILogger<RecipeController> logger, IDataStore dataStore)
+    public RecipeController(ILogger<RecipeController> logger, IDataStore dataStore, RecipeMapper mapper)
     {
         _logger = logger;
         this.dataStore = dataStore;
+        this.mapper = mapper;
     }
 
     [HttpGet()]
-    public async Task<IEnumerable<Recipe>> Get()
+    public async Task<IEnumerable<RecipeDto>> Get()
     {
-        return await dataStore.GetAllRecipes();
+        return (await dataStore.GetAllRecipes()).Select(mapper.RecipeToRecipeDto);
     }
 
     [HttpGet("{id}")]
@@ -51,10 +54,11 @@ public class RecipeController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<Recipe> Post([FromBody] Recipe recipe)
+    public async Task<RecipeDto> Post([FromBody] RecipeDto dto)
     {
+        var recipe = mapper.RecipeDtoToRecipe(dto);
         var newRecipe = await dataStore.AddRecipe(recipe);
-        return newRecipe;
+        return mapper.RecipeToRecipeDto(newRecipe);
     }
 
     [HttpDelete("{id}")]

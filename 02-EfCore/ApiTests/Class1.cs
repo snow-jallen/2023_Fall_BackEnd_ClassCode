@@ -1,16 +1,22 @@
-﻿using NUnit.Framework;
+﻿using EfCoreDemo.Exceptions;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Recapi.Data;
+using Xunit;
 
 namespace ApiTests;
 
-[TestFixture]
 public class Class1
 {
-    [Test]
+    [Fact]
     public void Pass()
     {
-        Assert.Fail("What?!");
+        Assert.True(true, "What?!");
     }
 
-    [Test]
-    public void Pass2() { Assert.Pass("Hooray!"); }
+    [Fact]
+    public async Task Demo()
+    {
+        Assert.Throws<MissingNameException>(() => new Recipe(null));        
+    }
 }

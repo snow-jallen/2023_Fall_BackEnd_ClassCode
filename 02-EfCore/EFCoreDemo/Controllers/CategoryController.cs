@@ -1,4 +1,5 @@
 ﻿using EfCoreDemo.DTO;
+using EfCoreDemo.Mappers;
 using Microsoft.AspNetCore.Mvc;
 using Recapi.Data;
 
@@ -10,23 +11,25 @@ public class CategoryController : ControllerBase
 {
     private readonly ILogger<RecipeController> _logger;
     private readonly IDataStore dataStore;
+    private readonly RecipeMapper mapper;
 
-    public CategoryController(ILogger<RecipeController> logger, IDataStore dataStore)
+    public CategoryController(ILogger<RecipeController> logger, IDataStore dataStore, RecipeMapper mapper)
     {
         _logger = logger;
         this.dataStore = dataStore;
+        this.mapper = mapper;
     }
 
     [HttpGet()]
-    public async Task<IEnumerable<Category>> Get()
+    public async Task<IEnumerable<CategoryDto>> Get()
     {
-        return await dataStore.GetAllCategories();
+        return (await dataStore.GetAllCategories()).Select(mapper.CategoryToCategoryDto);
     }
 
     [HttpGet("{id}")]
-    public async Task<Category> Get(int id)
+    public async Task<CategoryDto> Get(int id)
     {
-        return await dataStore.GetCategory(id);
+        return mapper.CategoryToCategoryDto(await dataStore.GetCategory(id));
     }
 
     [HttpGet("{id}/details")]
@@ -51,10 +54,11 @@ public class CategoryController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<Category> Post([FromBody] Category category)
+    public async Task<CategoryDto> Post([FromBody] CategoryDto categoryDto)
     {
-        var newRecipe = await dataStore.AddCategory(category);
-        return newRecipe;
+        var category = mapper.CategoryDtoToCategory(categoryDto);
+        var newCategory = await dataStore.AddCategory(category);
+        return mapper.CategoryToCategoryDto(newCategory);
     }
 }
 

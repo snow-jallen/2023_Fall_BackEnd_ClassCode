@@ -1,16 +1,11 @@
-﻿using EfCoreDemo.Exceptions;
+﻿using Recapi.Data;
 
-namespace Recapi.Data;
+namespace EfCoreDemo.DTO;
 
-public class Recipe
+public class RecipeDto
 {
-    public Recipe(string name)
-    {
-        Name = name ?? throw new MissingNameException();
-    }
-
     public int Id { get; set; }
-    public string Name { get; private set; }
+    public string Name { get; set; }
     public string Instructions { get; set; }
     public int MinutesToMake { get; set; }
     public string SourceUrl { get; set; }

@@ -2,6 +2,10 @@
 //@server = https://localhost:7048
 @server = https://appsvclinux2.azurewebsites.net/
 
+GET {{server}}/recipe
+
+###
+
 POST {{server}}/recipe
 Content-Type: application/json
 
